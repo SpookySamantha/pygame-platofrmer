@@ -22,6 +22,29 @@ ACC = 0.5
 FRIC = -0.12
 FPS = 60
 
+def move(self):
+# Resets Acceralation rate to 0
+    self.acc = vec(0,0)
+
+    pressed_keys = pygame.key.get_pressed()
+# Checks for key presses and changes accerlation rate accordingly 
+    if pressed_keys[K_A]:
+        self.acc.x = -ACC
+    if pressed_keys[K_D]:
+        self.acc.x = ACC
+
+# Code that I don't fully understand however it's about friction so messing around with FRIC
+# should make the friction more or less. I'm very good at explaining stuff
+    self.acc.x += self.vel.x * FRIC
+    self.vol += self.acc
+    self.pos += self.vel + 0.5 * self.acc
+
+# Allows for screen wrapping
+    if self.pos.x > WIDTH:
+        self.pos.x = 0
+    if self.pos.x < 0:
+        self.pos.x = WIDTH
+
 # vec, ACC, and FRIC will be used for physiscs stuff
 
 FramePerSec = pygame.time.Clock()
@@ -43,6 +66,7 @@ class Player(pygame.sprite.Sprite):
 # Create a rect object from the surface, centre is used to define a starting position
         self.rect = self.surf.get_rect(center = (10,420))
 
+# Vel = Velocity, acc = Acceleration
         self.pos = vec((10, 385))
         self.vel = vec((0,0))
         self.acc = vec((0,0))
@@ -88,6 +112,35 @@ while True:
     pygame.display.update()
     FramePerSec.tick(FPS)
 
+# I'm pretty sure I've done this wrong
+    P1.move()
+
+#def move(self):
+# Resets Acceralation rate to 0
+ #   self.acc = vec(0,0)
+
+  #  pressed_keys = pygame.key.get_pressed()
+# Checks for key presses and changes accerlation rate accordingly 
+   # if pressed_keys[K_A]:
+    #    self.acc.x = -ACC
+    #if pressed_keys[K_D]:
+     #   self.acc.x = ACC
+
+# Code that I don't fully understand however it's about friction so messing around with FRIC
+# should make the friction more or less. I'm very good at explaining stuff
+    #self.acc.x += self.vel.x * FRIC
+    #self.vol += self.acc
+    #self.pos += self.vel + 0.5 * self.acc
+
+# Allows for screen wrapping
+    #if self.pos.x > WIDTH:
+     #   self.pos.x = 0
+    #if self.pos.x < 0:
+     #   self.pos.x = WIDTH
+
+
+
+
 # Music listened to while working on this project:
 
 # Singles:
@@ -97,3 +150,4 @@ while True:
 # Glass Animals : How To Be A Human Being
 # Glass Animals : Dreamland (+ Bonus Levels)
 # Vantage : Metro City
+# Vantage : Aloha Island
